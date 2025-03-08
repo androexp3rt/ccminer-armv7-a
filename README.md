@@ -1,18 +1,23 @@
-# ccminer for ARM (cortex-a53)
+# ccminer for ARMv7a on Termux (cortex-a15 cortex-a7)
 
-Based on https://github.com/monkins1010/ccminer/tree/ARM
+Based on [https://github.com/monkins1010/ccminer/tree/ARM](https://github.com/monkins1010/ccminer/tree/ARM) and [https://github.com/Oink70/CCminer-ARM-optimized.git](https://github.com/Oink70/CCminer-ARM-optimized.git)
+Software AES taken from [https://github.com/turvopit/ccminer.git](https://github.com/turvopit/ccminer.git)
 
 Git and Build Process:
 ```
-sudo apt-get update
-sudo apt-get install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential -y
-sudo apt-get install -y libllvm-16-ocaml-dev libllvm16 llvm-16 llvm-16-dev llvm-16-doc llvm-16-examples llvm-16-runtime clang-16 clang-tools-16 clang-16-doc libclang-common-16-dev libclang-16-dev libclang1-16 clang-format-16 python3-clang-16 clangd-16 clang-tidy-16 libclang-rt-16-dev libpolly-16-dev libfuzzer-16-dev lldb-16 lld-16 libc++-16-dev libc++abi-16-dev libomp-16-dev libclc-16-dev libunwind-16-dev libmlir-16-dev mlir-16-tools flang-16 libclang-rt-16-dev-wasm32 libclang-rt-16-dev-wasm64 libclang-rt-16-dev-wasm32 libclang-rt-16-dev-wasm64
-git clone https://github.com/Oink70/CCminer-ARM-optimized.git
-cd CCminer-ARM-optimized
-chmod +x build.sh
-chmod +x configure.sh
-chmod +x autogen.sh
+pkg update && pkg upgrade -y
+pkg install git clang cmake make autoconf automake libtool curl openssl libjansson binutils
+git clone [https://github.com/androexp3rt/ccminer-armv7-a.git](https://github.com/androexp3rt/ccminer-armv7-a.git)
+cd ccminer-armv7-a
+chmod +x build.sh configure.sh autogen.sh
 CXX=clang++ CC=clang build.sh
 ```
-
+After Sucessfull build Run miner using following command:
+```
+./ccminer -a <coin/algo> -o <Pool Address with port> -u <walletaddress>.<minerName> -p <poolPassword (x for no password)> -t <no. of threads>
+```
+Example:
+```
+./ccminer -a verus -o stratum+tcp://pool.verus.io:9999 -u RCNN2BNWKncbkk2aptnLQnJfCruVyrBVgR.GALAXY_NOTE_3 -p x -t 4
+```
 For specific details on installing clang-16 on your current OS, check: https://apt.llvm.org/
